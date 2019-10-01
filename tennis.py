@@ -35,8 +35,9 @@ def Moveball():
     yball += Vyball
     moveObjectTo(ball, xball, yball)
 
-def wall():
-    global Vxball, xball
+def end():
+    pass
+    # конец игры
 
 Vxball = 5
 Vyball  = 5
