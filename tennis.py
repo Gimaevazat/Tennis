@@ -1,7 +1,6 @@
 from tkinter import *
 from graph import *
 import random
-Score = 0
 #Ракетка игрока
 def Moveracket2(event):
     global x2, y2, racket2, Vracket
@@ -21,21 +20,36 @@ def Moveracket1():
         x1 -= Vracket
     moveObjectTo(racket1, x1, y1)
 
-# Теннисный мяч
+# Теннисный мяч и его полет
 def Moveball():
     global Vxball, Vyball, xball, yball, ball
+    # Отскок от боковой стены
     if xball > 385:
         Vxball = - Vxball
     if xball < 2:
         Vxball =  -Vxball
+    #Условие отскока от ракетки игрока
     if yball > y2 - 15 and xball > x2 - 8  and xball < x2 + 54:
         Vyball = -Vyball
-    if yball < y1 + 9 and xball > x1 - 8  and xball < x2 + 54:
+    if yball >= y2 + 15:
+        Score1 += 1
+        deleteObject(ball)
+        xball = constx
+        yball = consty
+        brushColor("orange")
+        ball = circle(xball, yball, 7)
+    #Условие отскока от ракетки компьютера
+    if yball < y1 + 9 and xball > x1 - 54  and xball < x2 + 54:
         Vyball = -Vyball
-    if yball < 555:
-        Score =+ 1
-    if Score == 5:
-        end()
+    if yball <= 5:
+        Score2 +=1
+        deleteObject(ball)
+        xball = constx
+        yball = consty
+        brushColor("orange")
+        ball = circle(xball, yball, 7)
+    #Выявление победителя
+    #
     xball += Vxball
     yball += Vyball
     moveObjectTo(ball, xball, yball)
@@ -43,7 +57,8 @@ def Moveball():
 def end():
     pass
     # конец игры
-
+Score1 = 0
+Score2 = 0
 Vxball = 5
 Vyball  = 7
 Vracket = 7
@@ -51,6 +66,8 @@ x2 = 20
 y2 = 563
 x1 = 20
 y1 = 30
+constx = 20
+consty = 300
 xball = 20
 yball = 300
 #Дизфйн стола
