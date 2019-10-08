@@ -22,7 +22,7 @@ def Moveracket1():
 
 # Теннисный мяч и его полет
 def Moveball():
-    global Vxball, Vyball, xball, yball, ball
+    global Vxball, Vyball, xball, yball, ball, Score1, Score2
     # Отскок от боковой стены
     if xball > 385:
         Vxball = - Vxball
@@ -32,23 +32,33 @@ def Moveball():
     if yball > y2 - 15 and xball > x2 - 8  and xball < x2 + 54:
         Vyball = -Vyball
     if yball >= y2 + 15:
-        Score1 += 1
         deleteObject(ball)
         xball = constx
         yball = consty
         brushColor("orange")
         ball = circle(xball, yball, 7)
+        Score1 = Score1 + 1
+        if Score1 ==11:
+            print('Ты проиграл, позор')
+            exit()
+
+
     #Условие отскока от ракетки компьютера
     if yball < y1 + 9 and xball > x1 - 54  and xball < x2 + 54:
         Vyball = -Vyball
     if yball <= 5:
-        Score2 +=1
+        Score2 = Score2 + 1
         deleteObject(ball)
         xball = constx
         yball = consty
         brushColor("orange")
         ball = circle(xball, yball, 7)
-    #Выявление победителя
+        if Score2 == 11:
+            print('Ты выиграл')
+            exit()
+
+
+
     #
     xball += Vxball
     yball += Vyball
